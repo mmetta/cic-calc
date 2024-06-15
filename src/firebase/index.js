@@ -1,13 +1,13 @@
 import { initializeApp } from "firebase/app"
 
 export const firebaseApp = initializeApp({
-    apiKey: "AIzaSyCbuTOyZeZw8UF6VRX8DG1qu-J06LPzgI8",
-    authDomain: "cic-calc.firebaseapp.com",
-    databaseURL: "https://cic-calc-default-rtdb.firebaseio.com",
-    projectId: "cic-calc",
-    storageBucket: "cic-calc.appspot.com",
-    messagingSenderId: "940021320877",
-    appId: "1:940021320877:web:f26be8f239f968d2c68a24"
+    apiKey: process.env.VUE_APP_API_KEY,
+    authDomain: process.env.VUE_APP_AUTH_DOMAIN,
+    databaseURL: process.env.VUE_APP_DATABASE_URL,
+    projectId: process.env.VUE_APP_PROJECT_ID,
+    storageBucket: process.env.VUE_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.VUE_APP_MESSAGING_SENDER_ID,
+    appId: process.env.VUE_APP_APP_ID
 })
 
 export default function install(Vue) {
