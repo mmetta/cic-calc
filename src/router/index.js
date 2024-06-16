@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import Orcamento from '../views/Orcamento.vue'
+import Calculator from '../views/Calculator.vue'
+import ListItems from '../views/ListItems.vue'
+import Admin from '../views/Admin.vue'
 
 Vue.use(VueRouter)
 
@@ -9,6 +13,26 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/orcamento',
+    name: 'orc-view',
+    component: Orcamento
+  },
+  {
+    path: '/calc',
+    name: 'orc-calc',
+    component: Calculator
+  },
+  {
+    path: '/items',
+    name: 'list-items',
+    component: ListItems
+  },
+  {
+    path: '/admin',
+    name: 'adm-config',
+    component: Admin
   },
   {
     path: '/about',
