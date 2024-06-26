@@ -42,7 +42,7 @@
           </v-col>
         </v-row>
         <v-row class="justify-center mt-8">
-          <span style="font-size: 9pt;" class="grey--text">CIC-CALC - v-0.0.1</span>
+          <span style="font-size: 9pt;" class="grey--text">{{'CIC-CALC '}}{{ version }}</span>
         </v-row>
       </v-col>
     </v-row>
@@ -52,5 +52,10 @@
 <script>
   export default {
     name: 'Home-view',
+    computed: {
+      version() {
+        return this.$store.getters.version
+      }
+    },
   }
 </script>

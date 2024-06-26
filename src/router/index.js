@@ -4,7 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import Orcamento from '../views/Orcamento.vue'
 import Calculator from '../views/Calculator.vue'
 import ListItems from '../views/ListItems.vue'
-import Admin from '../views/Admin.vue'
+import Admin from '../views/Config.vue'
 
 Vue.use(VueRouter)
 
