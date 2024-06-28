@@ -10,8 +10,10 @@
   "dependencies": {
     "core-js": "^3.8.3",
     "firebase": "^10.12.2",
+    "html2pdf.js": "^0.9.0",
     "register-service-worker": "^1.7.2",
     "vue": "^2.7.16",
+    "vue-html2pdf": "^1.8.0",
     "vue-router": "^3.5.1",
     "vuetify": "^2.6.0",
     "vuex": "^3.6.2"

@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import Orcamento from '../views/Orcamento.vue'
 import Calculator from '../views/Calculator.vue'
 import ListItems from '../views/ListItems.vue'
+import PdfView from '../views/Viewpage.vue'
 import Admin from '../views/Config.vue'
 
 Vue.use(VueRouter)
@@ -13,6 +14,11 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/pdfview',
+    name: 'pdf-view',
+    component: PdfView
   },
   {
     path: '/orcamento',

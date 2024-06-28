@@ -82,7 +82,8 @@ export default {
       },
       editar(item) {
         this.$store.dispatch('selItem', item)
-        this.$router.push('/calc')
+        // this.$router.push('/calc')
+        this.$router.push('/pdfview')
       },
       remove(item) {
         this.$store.dispatch('selItem', item)
