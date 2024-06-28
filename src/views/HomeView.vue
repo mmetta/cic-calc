@@ -19,7 +19,7 @@
         </v-col>
         <v-col cols="6">
           <v-row class="justify-start">
-            <v-btn tile outlined elevation="0" route color="primary" width="200" height="100" class="ma-1" to="/calc">
+            <v-btn tile outlined elevation="0" color="primary" width="200" height="100" class="ma-1" @click="novo()">
               <v-icon class="mr-2">mdi-calculator-variant-outline</v-icon> calcular
             </v-btn>
           </v-row>
@@ -42,7 +42,8 @@
           </v-col>
         </v-row>
         <v-row class="justify-center mt-8">
-          <span style="font-size: 9pt;" class="grey--text">{{'CIC-CALC '}}{{ version }}</span>
+          <span style="font-size: 9pt;" class="grey--text mr-2">{{'CIC-CALC '}}</span>
+          <span style="font-size: 9pt;" class="grey--text ml-2">{{ version }}</span>
         </v-row>
       </v-col>
     </v-row>
@@ -55,6 +56,12 @@
     computed: {
       version() {
         return this.$store.getters.version
+      }
+    },
+    methods: {
+      novo() {
+        this.$store.dispatch('selItem', {})
+        this.$router.push('/calc')
       }
     },
   }

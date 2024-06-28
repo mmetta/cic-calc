@@ -3,8 +3,10 @@ import { getDatabase, ref, get, child, update, push } from "firebase/database"
 
 const state = {
     items: [],
+    orcamento: {},
     categorias: [],
     unidades: [],
+    orcamentos: [],
     version: ""
 }
 
@@ -12,11 +14,17 @@ const getters = {
     items(state) {
         return state.items
     },
+    orcamento(state) {
+        return state.orcamento
+    },
     categorias(state) {
         return state.categorias
     },
     unidades(state) {
         return state.unidades
+    },
+    orcamentos(state) {
+        return state.orcamentos
     },
     version(state) {
         return state.version
@@ -53,7 +61,32 @@ const actions = {
                 }
                 commit('setItems', items)
             } else {
-                console.log("Dados não encontrados.")
+                commit('setItems', [])
+            }
+        }).catch((error) => {
+            console.error(error)
+        })
+    },
+    loadOrcamentos({ commit }) {
+        const db = getDatabase(firebaseApp)
+        const dbRef = ref(db)
+        get(child(dbRef, 'orcamentos/')).then((snapshot) => {
+            if (snapshot.exists()) {
+                const items = []
+                const obj = snapshot.val()
+                for (const key in obj) {
+                    items.push({
+                        id: key,
+                        data: obj[key].data,
+                        cliente: obj[key].cliente,
+                        contato: obj[key].contato,
+                        linhas: obj[key].linhas,
+                        total: obj[key].total
+                    })
+                }
+                commit('setOrcamentos', items)
+            } else {
+                commit('setOrcamentos', [])
             }
         }).catch((error) => {
             console.error(error)
@@ -74,7 +107,7 @@ const actions = {
                 }
                 commit('setCategorias', cats)
             } else {
-                console.log("Dados não encontrados.")
+                commit('setCategorias', [])
             }
         }).catch((error) => {
             console.error(error)
@@ -96,7 +129,7 @@ const actions = {
                 }
                 commit('setUnidades', unids)
             } else {
-                console.log("Dados não encontrados.")
+                commit('setUnidades', [])
             }
         }).catch((error) => {
             console.error(error)
@@ -112,6 +145,21 @@ const actions = {
             })
             .then(key => {
                 commit('saveItem', key)
+            })
+    },
+    selItem({ commit }, item) {
+        commit('selItem', item)
+    },
+    saveOrcamento({ commit }, obj) {
+        const db = getDatabase(firebaseApp)
+        let key
+        push(ref(db, 'orcamentos/'), obj)
+            .then((data) => {
+                key = data.key
+                return key
+            })
+            .then(key => {
+                commit('saveOrcamento', key)
             })
     },
     saveCategoria({ commit }, obj) {
@@ -145,6 +193,13 @@ const actions = {
         update(ref(db), updates);
         commit('saveItem', true)
     },
+    updateOrcamento({ commit }, obj) {
+        const db = getDatabase(firebaseApp)
+        const updates = {};
+        updates['orcamento/' + obj.id] = obj;
+        update(ref(db), updates);
+        commit('saveOrcamento', true)
+    },
     updateCategoria({ commit }, obj) {
         const db = getDatabase(firebaseApp)
         const updates = {};
@@ -165,6 +220,13 @@ const actions = {
         updates['items/' + id] = null;
         update(ref(db), updates);
         commit('saveItem', true)
+    },
+    deleteOrcamento({ commit }, id) {
+        const db = getDatabase(firebaseApp)
+        const updates = {};
+        updates['orcamentos/' + id] = null;
+        update(ref(db), updates);
+        commit('saveOrcamento', true)
     },
     deleteCategoria({ commit }, id) {
         const db = getDatabase(firebaseApp)
@@ -189,6 +251,12 @@ const mutations = {
     setItems(state, obj) {
         state.items = obj
     },
+    selItem(state, obj) {
+        state.orcamento = obj
+    },
+    setOrcamentos(state, obj) {
+        state.orcamentos = obj
+    },
     setCategorias(state, obj) {
         state.categorias = obj
     },
@@ -196,6 +264,9 @@ const mutations = {
         state.unidades = obj
     },
     saveItem(obj) {
+        console.log(obj)
+    },
+    saveOrcamento(obj) {
         console.log(obj)
     },
     saveCategoria(obj) {
