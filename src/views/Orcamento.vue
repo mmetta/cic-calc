@@ -44,6 +44,48 @@
                   </v-list>
             </v-col>
         </v-row>
+
+        <v-dialog
+        v-model="dialog2"
+        scrollable
+        persistent
+        :overlay="false"
+        max-width="500px"
+        transition="dialog-transition"
+      >
+        <v-card>
+          <v-card-title primary-title>{{ 'DELETAR ORÇAMENTO?' }}</v-card-title>
+          <v-card-subtitle>
+            {{  remover.data  }} <strong class="ml-3">{{ remover.cliente }}</strong>
+          </v-card-subtitle>
+          <v-card-text>
+            <v-col cols="12">
+              <v-row>
+                <strong class="pr-2">{{ remover.linhas }}</strong><span>itens.</span>
+              </v-row>
+              <v-row>
+                <strong class="pr-2">{{ 'Total:' }}</strong><span>{{remover.total}}</span>
+              </v-row>
+            </v-col>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              color="warning"
+              text
+              @click="fechar()"
+              >não
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="red"
+              text
+              @click="deletar(remover.id)"
+              >sim
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
     </div>
 </template>
 <script>
@@ -64,7 +106,7 @@ export default {
       return {
         loading: false,
         active: "",
-        dialog: false,
+        dialog2: false,
         remover: "",
         item: "",
         fazer: "salvar",
@@ -86,21 +128,23 @@ export default {
         this.$router.push('/pdfview')
       },
       remove(item) {
-        this.$store.dispatch('selItem', item)
         this.remover = {
           id: item.id,
-          nome: item.descricao
+          cliente: item.cliente,
+          data: item.data,
+          linhas: item.linhas.length,
+          total: item.total
         }
-        this.dialog = true
+        this.dialog2 = true
       },
       deletar(id) {
-        this.$store.dispatch("deleteItem", id);
-        this.$store.dispatch("loadItems");
+        this.$store.dispatch("deleteOrcamento", id);
+        this.$store.dispatch("loadOrcamentos");
         this.fechar()
       },
       fechar() {
         this.$store.dispatch('selItem', {})
-        this.dialog = false
+        this.dialog2 = false
       }
     }
 }

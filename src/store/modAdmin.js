@@ -81,6 +81,7 @@ const actions = {
                         cliente: obj[key].cliente,
                         contato: obj[key].contato,
                         linhas: obj[key].linhas,
+                        obs: obj[key].obs,
                         total: obj[key].total
                     })
                 }
@@ -194,9 +195,10 @@ const actions = {
         commit('saveItem', true)
     },
     updateOrcamento({ commit }, obj) {
+        console.log(obj)
         const db = getDatabase(firebaseApp)
         const updates = {};
-        updates['orcamento/' + obj.id] = obj;
+        updates['orcamentos/' + obj.id] = obj;
         update(ref(db), updates);
         commit('saveOrcamento', true)
     },

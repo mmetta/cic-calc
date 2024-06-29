@@ -12,6 +12,7 @@
       pdf-orientation="portrait"
       pdf-content-width="800px"
       :html-to-pdf-options="{margin: [15, 20], filename: fileName()}"
+      @hasDownloaded="setLoad()"
       ref="html2Pdf"
     >
       <section slot="pdf-content">
@@ -22,7 +23,7 @@
                           Convicções Incontestáveis Construções
                         </p>
                 </div>
-                <p class="nome"><span class="mr-2">Cliente: </span><strong> {{ orcamento.cliente }}!!</strong></p>
+                <p class="nome"><span class="mr-2">Cliente: </span><strong> {{ orcamento.cliente }}</strong></p>
                 <p>{{ orcamento.data }} - Contato: {{ orcamento.contato }}</p>
                 <p></p>
                     <table class="tabela">
@@ -45,20 +46,29 @@
                         </tr>
                     </table>
             </div>
+            <div class="obs">
+              <p>
+                <strong>Observações:</strong>
+              </p>
+              <p>
+                <span>{{ orcamento.obs }}</span>
+              </p>
+            </div>
       </section>
     </vue-html2pdf>
 
-    <v-row class="justify-center ma-4">
+    <v-row class="ma-4">
         <v-col cols="12">
     <div id="imprimir">
-        <div class="primary white--text justify-center align-center" style="width: 240px; height: 100px">
+        <div class="primary white--text align-center" style="width: 240px; height: 100px">
             <p style="height: 100%;" class="text-center">
               Convicções Incontestáveis Construções
             </p>
           </div>
-        <p class="nome"><span class="mr-2">Cliente: </span><strong> {{ orcamento.cliente }}!!</strong></p>
+        <p class="nome"><span class="mr-2">Cliente: </span><strong> {{ orcamento.cliente }}</strong></p>
         <p>{{ orcamento.data }} - Contato: {{ orcamento.contato }}</p>
         <p></p>
+          <v-row class="justify-center mb-2">
             <table class="tabela">
                 <tr>
                     <th class="col1">Descrição</th>
@@ -78,10 +88,24 @@
                     <td class="colr">{{ parseFloat(orcamento.total).toFixed(2) }}</td>
                 </tr>
             </table>
+          </v-row>
+          <div class="pa-4">
+            <v-row>
+              <strong>Observações:</strong>
+            </v-row>
+            <v-row>
+              <span>{{ orcamento.obs }}</span>
+            </v-row>
+          </div>
     </div>
-        <v-row class="justify-center mt-8">
-            <v-btn tile color="primary" @click="generateReport()">Gerar PDF</v-btn>
+      <div class="rodape">
+        <v-row class="justify-center mt-4">
+            <v-btn icon color="primary" class="ml-4" @click="voltar()"><v-icon>mdi-arrow-left</v-icon></v-btn>
+            <v-spacer></v-spacer>
+            <v-btn tile color="warning" class="mr-4" @click="editar()">editar</v-btn>
+            <v-btn tile :loading="loading" :disabled="loading" color="primary" class="mr-4" @click="generateReport()">Gerar PDF</v-btn>
         </v-row>
+      </div>
     </v-col>
     </v-row>
   </div>
@@ -100,9 +124,27 @@ export default {
   components: {
     VueHtml2pdf,
   },
+  data() {
+    return {
+      loading: false
+    }
+  },
   methods: {
+    voltar() {
+      this.$store.dispatch('selItem', {})
+      this.$router.push('/orcamento')
+    },
+    editar() {
+      this.$store.dispatch('selItem', this.orcamento)
+      this.$router.push('/calc')
+    },
     generateReport() {
-      this.$refs.html2Pdf.generatePdf();
+      this.loading = true
+      this.$refs.html2Pdf.generatePdf()
+    },
+    setLoad() {
+      console.log('loading')
+      this.loading = false
     },
     fileName() {
         let dt = this.orcamento.data
@@ -119,6 +161,7 @@ export default {
 <style scoped>
     #imprimir {
         font-family: 'Arial';
+        margin-bottom: 16px;
     }
     .logo {
         color: white;
@@ -136,8 +179,16 @@ export default {
         margin-top: 10px;
         margin-bottom: 5px;
     }
+    .rodape {
+      border-top: solid 4px #CCC;
+    }
+    .obs {
+      margin: 10px 0px;
+      padding: 8px 0px;
+    }
     table {
         margin-top: 20px;
+        margin-bottom: 10px;
     }
     .tabela, th, td {
         border: 1px solid #AAA;
