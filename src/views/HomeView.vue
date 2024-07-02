@@ -2,12 +2,8 @@
   <div>
     <v-row class="ma-2">
       <v-col class="pa-0">
-        <v-row class="align-center justify-center my-2">
-          <div class="primary white--text justify-center align-center" style="width: 240px; height: 100px">
-            <p style="height: 100%;" class="text-center mt-5">
-              Convicções Incontestáveis Construções
-            </p>
-          </div>
+        <v-row class="justify-center my-1">
+          <img width="240" src="../assets/logo-cic-02.png" alt="logo" title="Convicções Incontestáveis" />
         </v-row>
         <v-row>
           <v-col cols="6">

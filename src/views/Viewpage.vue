@@ -19,9 +19,7 @@
         <!-- Seu conteúdo HTML aqui -->
             <div id="imprimir">
                 <div class="logo">
-                        <p style="height: 100%;" class="text-center mt-5">
-                          Convicções Incontestáveis Construções
-                        </p>
+                  <img width="440" src="../assets/cic-logo.png" alt="logo" title="Convicções Incontestáveis" />
                 </div>
                 <p class="nome"><span class="mr-2">Cliente: </span><strong> {{ orcamento.cliente }}</strong></p>
                 <p>{{ orcamento.data }} - Contato: {{ orcamento.contato }}</p>
@@ -60,11 +58,9 @@
     <v-row class="ma-4">
         <v-col cols="12">
     <div id="imprimir">
-        <div class="primary white--text align-center" style="width: 240px; height: 100px">
-            <p style="height: 100%;" class="text-center">
-              Convicções Incontestáveis Construções
-            </p>
-          </div>
+        <v-row class="justify-start mb-1">
+          <img width="440" src="../assets/cic-logo.png" alt="logo" title="Convicções Incontestáveis" />
+        </v-row>
         <p class="nome"><span class="mr-2">Cliente: </span><strong> {{ orcamento.cliente }}</strong></p>
         <p>{{ orcamento.data }} - Contato: {{ orcamento.contato }}</p>
         <p></p>
@@ -164,13 +160,8 @@ export default {
         margin-bottom: 16px;
     }
     .logo {
-        color: white;
-        font-size: 14pt;
-        background-color: blue;
-        width: 240px;
-        height: 100px;
-        text-align: center;
-        padding-top: 10px;
+      margin-top: 0px;
+      margin-bottom: 0px;
     }
     .nome {
         border-top: solid 4px #CCC;
