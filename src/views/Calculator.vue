@@ -1,7 +1,8 @@
 <template>
     <div>
         <v-row class="ma-2 align-center">
-            <v-btn icon route color="success" to="/orcamento" class="mr-4"><v-icon>mdi-arrow-left</v-icon></v-btn>
+            <v-btn icon color="success" class="ml-4" @click="voltar(0)"><v-icon>mdi-arrow-left</v-icon></v-btn>
+            <v-btn icon color="primary" class="ml-4" @click="voltar(1)"><v-icon>mdi-home</v-icon></v-btn>
             <v-spacer></v-spacer>
             <strong>CALCULADORA</strong>
             <v-spacer></v-spacer>
@@ -293,6 +294,14 @@ export default {
       };
     },
     methods: {
+        voltar(r) {
+            this.$store.dispatch('selItem', {})
+            if(r === 0) {
+                this.$router.push('/orcamento')
+            }else{
+                this.$router.push('/')
+            }
+        },
         novo() {
             this.limpar()
             this.dialog = true
@@ -342,6 +351,7 @@ export default {
                 }
             }
             this.linhas = arr
+            this.setTotal()
         },
         incluir() {
             if(!this.descricao || !this.quant || !this.valor){

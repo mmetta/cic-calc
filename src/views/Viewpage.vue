@@ -58,6 +58,10 @@
     <v-row class="ma-4">
         <v-col cols="12">
     <div id="imprimir">
+      <v-row class="mt-0">
+        <v-btn icon color="success" class="ml-4" @click="voltar(0)"><v-icon>mdi-arrow-left</v-icon></v-btn>
+        <v-btn icon color="primary" class="ml-4" @click="voltar(1)"><v-icon>mdi-home</v-icon></v-btn>
+      </v-row>
         <v-row class="justify-start mb-1">
           <img width="440" src="../assets/cic-logo.png" alt="logo" title="Convicções Incontestáveis" />
         </v-row>
@@ -95,8 +99,7 @@
           </div>
     </div>
       <div class="rodape">
-        <v-row class="justify-center mt-4">
-            <v-btn icon color="primary" class="ml-4" @click="voltar()"><v-icon>mdi-arrow-left</v-icon></v-btn>
+        <v-row class="mt-4">
             <v-spacer></v-spacer>
             <v-btn tile color="warning" class="mr-4" @click="editar()">editar</v-btn>
             <v-btn tile :loading="loading" :disabled="loading" color="primary" class="mr-4" @click="generateReport()">Gerar PDF</v-btn>
@@ -126,9 +129,13 @@ export default {
     }
   },
   methods: {
-    voltar() {
+    voltar(r) {
       this.$store.dispatch('selItem', {})
-      this.$router.push('/orcamento')
+      if(r === 0) {
+        this.$router.push('/orcamento')
+      }else{
+        this.$router.push('/')
+      }
     },
     editar() {
       this.$store.dispatch('selItem', this.orcamento)
