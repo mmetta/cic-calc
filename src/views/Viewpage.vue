@@ -39,6 +39,16 @@
                         </tr>
                         <tr>
                             <td colspan="2"></td>
+                            <td class="colc"><strong>SUBTOTAL</strong></td>
+                            <td class="colr">{{ orcamento.subtotal ? parseFloat(orcamento.subtotal).toFixed(2) : '' }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td class="colc"><strong>DESC.</strong></td>
+                            <td class="colr">{{ orcamento.desc ? parseFloat(orcamento.desc).toFixed(2) : '' }}%</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
                             <td class="colc"><strong>TOTAL</strong></td>
                             <td class="colr">{{ parseFloat(orcamento.total).toFixed(2) }}</td>
                         </tr>
@@ -81,6 +91,16 @@
                     <td class="colc">{{ item.quant }}</td>
                     <td class="colr">{{ item.valor }}</td>
                     <td class="colr">{{ item.subtotal }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td class="colc"><strong>SUBTOTAL</strong></td>
+                    <td class="colr">{{ orcamento.subtotal ? parseFloat(orcamento.subtotal).toFixed(2) : '' }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td class="colc"><strong>DESC.</strong></td>
+                    <td class="colr">{{ orcamento.desc ? parseFloat(orcamento.desc).toFixed(2) : '' }}%</td>
                 </tr>
                 <tr>
                     <td colspan="2"></td>

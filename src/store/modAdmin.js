@@ -82,6 +82,8 @@ const actions = {
                         contato: obj[key].contato,
                         linhas: obj[key].linhas,
                         obs: obj[key].obs,
+                        subtotal: obj[key].subtotal,
+                        desc: obj[key].desc,
                         total: obj[key].total
                     })
                 }
