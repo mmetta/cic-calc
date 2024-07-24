@@ -81,6 +81,7 @@
             <v-row class="justify-end mx-4">
                 <h4>{{ subtotal ? parseFloat(subtotal).toFixed(2) : '0.00' }}</h4>
             </v-row>
+           
             <v-row class="justify-end mx-4">
                 <div width="120">
                     <v-text-field
@@ -90,11 +91,24 @@
                         min="0"
                         step="0.01"
                         v-model="desc"
-                        @input="calcDesc()"
+                        @input="calcPerc()"
                     ></v-text-field>
                 </div>
-
             </v-row>
+            <v-row class="justify-end mx-4">
+                <div width="120">
+                    <v-text-field
+                        type="number"
+                        label="% IVA"
+                        max="100"
+                        min="0"
+                        step="0.01"
+                        v-model="iva"
+                        @input="calcPerc()"
+                    ></v-text-field>
+                </div>
+            </v-row>
+
             <v-row class="justify-center mx-4">
                 <v-btn
                     tile
@@ -278,6 +292,7 @@ export default {
             this.linhas = orc.linhas
             this.subtotal = orc.subtotal
             this.desc = orc.desc ? parseFloat(orc.desc) : 0
+            this.iva = orc.iva ? parseFloat(orc.iva) : 0
             this.total = orc.total
             this.obs = orc.obs
             this.id = orc.id
@@ -301,6 +316,7 @@ export default {
         subtotal: "0.0",
         total: "0.0",
         desc: 0,
+        iva: 0,
         descricao: "",
         quant: "",
         unidade: "",
@@ -406,16 +422,26 @@ export default {
             } else {
                 this.subtotal = 0.0
             }
+            this.calcIVA()
             this.calcDesc()
         },
-        calcDesc() {
-            if(this.desc <= 0) {
-                this.total = parseFloat(this.subtotal)
+        calcPerc() {
+            const st = this.subtotal
+            if(this.desc <= 0 && this.iva <= 0) {
+                this.total = parseFloat(st)
             } else {
-                let d = parseFloat(this.desc)
-                let v1 = (parseFloat(this.subtotal) * d) / 100
-                let v2 = parseFloat(this.subtotal) - v1
-                this.total = parseFloat(v2).toFixed(2)
+                let tt = this.subtotal
+                if(this.desc > 0) {
+                    let i = parseFloat(this.desc)
+                    let v1 = (parseFloat(st) * i) / 100
+                    tt = parseFloat(st) - v1
+                }
+                if(this.iva > 0) {
+                    let d = parseFloat(this.iva)
+                    let v2 = (parseFloat(tt) * d) / 100
+                    tt = parseFloat(tt) + v2
+                }
+                this.total = parseFloat(tt).toFixed(2)
             }
         },
         salvar() {
@@ -430,6 +456,7 @@ export default {
                 obs: this.obs,
                 subtotal: this.subtotal,
                 desc: this.desc,
+                iva: this.iva,
                 total: this.total
             }
             if(this.fazer === "editar") {

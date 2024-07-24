@@ -84,6 +84,7 @@ const actions = {
                         obs: obj[key].obs,
                         subtotal: obj[key].subtotal,
                         desc: obj[key].desc,
+                        iva: obj[key].iva,
                         total: obj[key].total
                     })
                 }

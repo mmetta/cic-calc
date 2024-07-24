@@ -43,14 +43,21 @@
                             <td class="colr">{{ orcamento.subtotal ? parseFloat(orcamento.subtotal).toFixed(2) : '' }}</td>
                         </tr>
                         <tr>
-                            <td colspan="2"></td>
-                            <td class="colc"><strong>DESC.</strong></td>
-                            <td class="colr">{{ orcamento.desc ? parseFloat(orcamento.desc).toFixed(2) : '' }}%</td>
-                        </tr>
+                          <td class="colc"></td>
+                          <td class="colc"><strong>DESC.</strong></td>
+                          <td class="colc">{{ orcamento.desc ? parseFloat(orcamento.desc).toFixed(2) : '' }}%</td>
+                          <td class="cold">{{ valorDesc(orcamento.subtotal, orcamento.desc) }}</td>
+                      </tr>
+                      <tr>
+                          <td class="colc"></td>
+                          <td class="colc"><strong>IVA</strong></td>
+                          <td class="colc">{{ orcamento.iva ? parseFloat(orcamento.iva).toFixed(2) : '' }}%</td>
+                          <td class="colr">{{ valorIVA(orcamento.iva) }}</td>
+                      </tr>
                         <tr>
                             <td colspan="2"></td>
                             <td class="colc"><strong>TOTAL</strong></td>
-                            <td class="colr">{{ parseFloat(orcamento.total).toFixed(2) }}</td>
+                            <td class="colr"><strong>{{ parseFloat(orcamento.total).toFixed(2) }}</strong></td>
                         </tr>
                     </table>
             </div>
@@ -98,14 +105,21 @@
                     <td class="colr">{{ orcamento.subtotal ? parseFloat(orcamento.subtotal).toFixed(2) : '' }}</td>
                 </tr>
                 <tr>
-                    <td colspan="2"></td>
+                    <td class="colc"></td>
                     <td class="colc"><strong>DESC.</strong></td>
-                    <td class="colr">{{ orcamento.desc ? parseFloat(orcamento.desc).toFixed(2) : '' }}%</td>
+                    <td class="colc">{{ orcamento.desc ? parseFloat(orcamento.desc).toFixed(2) : '' }}%</td>
+                    <td class="cold">{{ valorDesc(orcamento.subtotal, orcamento.desc) }}</td>
+                </tr>
+                <tr>
+                    <td class="colc"></td>
+                    <td class="colc"><strong>IVA</strong></td>
+                    <td class="colc">{{ orcamento.iva ? parseFloat(orcamento.iva).toFixed(2) : '' }}%</td>
+                    <td class="colr">{{ valorIVA(orcamento.iva) }}</td>
                 </tr>
                 <tr>
                     <td colspan="2"></td>
                     <td class="colc"><strong>TOTAL</strong></td>
-                    <td class="colr">{{ parseFloat(orcamento.total).toFixed(2) }}</td>
+                    <td class="colr"><strong>{{ parseFloat(orcamento.total).toFixed(2) }}</strong></td>
                 </tr>
             </table>
           </v-row>
@@ -145,7 +159,8 @@ export default {
   },
   data() {
     return {
-      loading: false
+      loading: false,
+      comDesc: 0
     }
   },
   methods: {
@@ -155,6 +170,26 @@ export default {
         this.$router.push('/orcamento')
       }else{
         this.$router.push('/')
+      }
+    },
+    valorDesc(st, desc){
+      if (parseFloat(desc) > 0) {
+        let valor = (parseFloat(st) * parseFloat(desc)) / 100
+        valor = valor * -1
+        this.comDesc = parseFloat(st) - valor
+        return parseFloat(valor).toFixed(2)
+      } else {
+        this.comDesc = parseFloat(st)
+        return '0.0'
+      }
+    },
+    valorIVA(iva){
+      if (parseFloat(iva) > 0) {
+        let st = this.comDesc
+        let valor = (parseFloat(st) * parseFloat(iva)) / 100
+        return parseFloat(valor).toFixed(2)
+      } else {
+        return '0.0'
       }
     },
     editar() {
@@ -230,6 +265,11 @@ export default {
     .colr {
         text-align: right;
         padding-right: 4px;
+    }
+    .cold {
+        text-align: right;
+        padding-right: 4px;
+        color: red;
     }
     tr {
         padding-top: 6px;
