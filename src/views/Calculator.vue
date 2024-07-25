@@ -422,8 +422,7 @@ export default {
             } else {
                 this.subtotal = 0.0
             }
-            this.calcIVA()
-            this.calcDesc()
+            this.calcPerc()
         },
         calcPerc() {
             const st = this.subtotal
