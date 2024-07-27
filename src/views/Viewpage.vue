@@ -19,7 +19,7 @@
         <!-- Seu conteúdo HTML aqui -->
             <div id="imprimir">
                 <div class="logo">
-                  <img width="440" src="../assets/cic-logo.png" alt="logo" title="Convicções Incontestáveis" />
+                  <img width="540" src="../assets/cic-logo-end.png" alt="logo" title="Convicções Incontestáveis" />
                 </div>
                 <p class="nome"><span class="mr-2">Cliente: </span><strong> {{ orcamento.cliente }}</strong></p>
                 <p>{{ orcamento.data }} - Contato: {{ orcamento.contato }}</p>
@@ -79,8 +79,8 @@
         <v-btn icon color="success" class="ml-4" @click="voltar(0)"><v-icon>mdi-arrow-left</v-icon></v-btn>
         <v-btn icon color="primary" class="ml-4" @click="voltar(1)"><v-icon>mdi-home</v-icon></v-btn>
       </v-row>
-        <v-row class="justify-start mb-1">
-          <img width="440" src="../assets/cic-logo.png" alt="logo" title="Convicções Incontestáveis" />
+        <v-row class="justify-start mb-1 ml-2">
+          <img width="540" src="../assets/cic-logo-end.png" alt="logo" title="Convicções Incontestáveis" />
         </v-row>
         <p class="nome"><span class="mr-2">Cliente: </span><strong> {{ orcamento.cliente }}</strong></p>
         <p>{{ orcamento.data }} - Contato: {{ orcamento.contato }}</p>
