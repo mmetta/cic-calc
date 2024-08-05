@@ -26,14 +26,12 @@
                 <p></p>
                     <table class="tabela">
                         <tr>
-                            <th class="col1">Descrição</th>
-                            <th>Quant</th>
+                            <th colspan="2" class="col1">Descrição</th>
                             <th>Valor</th>
                             <th>Subtotal</th>
                         </tr>
                         <tr v-for="item in orcamento.linhas" :key="item.id">
-                            <td class="coll">{{ item.descricao }}</td>
-                            <td class="colc">{{ item.quant }}</td>
+                            <td colspan="2" class="coll">{{ item.descricao }}</td>
                             <td class="colr">{{ item.valor }}</td>
                             <td class="colr">{{ item.subtotal }}</td>
                         </tr>
@@ -88,14 +86,12 @@
           <v-row class="justify-center mb-2">
             <table class="tabela">
                 <tr>
-                    <th class="col1">Descrição</th>
-                    <th>Quant</th>
+                    <th colspan="2" class="col1">Descrição</th>
                     <th>Valor</th>
                     <th>Subtotal</th>
                 </tr>
                 <tr v-for="item in orcamento.linhas" :key="item.id">
-                    <td class="coll">{{ item.descricao }}</td>
-                    <td class="colc">{{ item.quant }}</td>
+                    <td colspan="2" class="coll">{{ item.descricao }}</td>
                     <td class="colr">{{ item.valor }}</td>
                     <td class="colr">{{ item.subtotal }}</td>
                 </tr>
@@ -252,7 +248,7 @@ export default {
         height: 22px;
     }
     .col1 {
-        width: 40%;
+        width: 50%;
     }
     .coll {
         width: 40%;
