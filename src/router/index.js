@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import AuthGuard from "./auth-guard";
+import Login from '@/views/Login.vue';
 import HomeView from '../views/HomeView.vue'
 import Orcamento from '../views/Orcamento.vue'
 import Calculator from '../views/Calculator.vue'
@@ -11,34 +13,45 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+  {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    beforeEnter: AuthGuard,
   },
   {
     path: '/pdfview',
     name: 'pdf-view',
-    component: PdfView
+    component: PdfView,
+    beforeEnter: AuthGuard,
   },
   {
     path: '/orcamento',
     name: 'orc-view',
-    component: Orcamento
+    component: Orcamento,
+    beforeEnter: AuthGuard,
   },
   {
     path: '/calc',
     name: 'orc-calc',
-    component: Calculator
+    component: Calculator,
+    beforeEnter: AuthGuard,
   },
   {
     path: '/items',
     name: 'list-items',
-    component: ListItems
+    component: ListItems,
+    beforeEnter: AuthGuard,
   },
   {
     path: '/admin',
     name: 'adm-config',
-    component: Admin
+    component: Admin,
+    beforeEnter: AuthGuard,
   },
   {
     path: '/about',

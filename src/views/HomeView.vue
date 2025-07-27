@@ -43,22 +43,57 @@
         </v-row>
       </v-col>
     </v-row>
+        <v-row class="justify-center">
+            <v-btn
+              small
+              text
+              color="red"
+              @click="logOut()"
+            >
+            <v-icon small color="red">mdi-power</v-icon>    
+            sair
+            </v-btn>
+        </v-row>
   </div>
 </template>
 
 <script>
   export default {
     name: 'Home-view',
+    mounted() {
+      this.$store.dispatch('loadItems')
+      this.$store.dispatch('loadCategorias')
+      this.$store.dispatch('loadUnidades')
+      this.$store.dispatch('loadOrcamentos')
+    },
     computed: {
       version() {
         return this.$store.getters.version
+      },
+      logado() {
+        return this.$store.getters.logado;
+      }
+    },
+    watch: {
+      logado(l) {
+        if (!l) {
+          if (this.$route.path !== "/login") {
+            this.$router.push("/login");
+          }
+        }
       }
     },
     methods: {
       novo() {
         this.$store.dispatch('selItem', {})
         this.$router.push('/calc')
-      }
+      },
+      logOut() {
+        this.$store.dispatch("logOut");
+        if (this.$route.path !== "/login") {
+          this.$router.push("/login");
+        }
+      },
     },
   }
 </script>
